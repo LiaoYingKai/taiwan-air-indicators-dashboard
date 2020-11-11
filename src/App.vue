@@ -1,5 +1,8 @@
 <template>
   <main>
+    <content>
+      <Divider city="高雄市" date="2020/11/11 14:00" />
+    </content>
     <footer>
       <p>資料來源：g0v</p>
       <p>Copyright © 2019 HexSchool. All rights reserved.</p>
@@ -8,12 +11,11 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import Divider from "@/components/divider.vue";
 export default {
   name: "App",
   components: {
-    HelloWorld
+    Divider,
   }
 };
 </script>
@@ -47,6 +49,9 @@ main {
   padding: 0px 85px;
   box-sizing: border-box;
 }
+content {
+  width: 100%;
+}
 footer {
   position: fixed;
   bottom: 0;
@@ -60,5 +65,10 @@ footer {
     color: $white;
   }
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
