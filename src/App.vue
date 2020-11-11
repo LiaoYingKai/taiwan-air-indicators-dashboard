@@ -3,6 +3,7 @@
     <section>
       <div class="flex">
         <Title :cities="['高雄', '臺北']" />
+        <Ruler />
       </div>
       <Divider city="高雄市" date="2020/11/11 14:00" />
     </section>
@@ -36,6 +37,7 @@ html {
 }
 p {
   margin: 0;
+  font-weight: 600;
 }
 #app {
   width: 100%;
@@ -45,7 +47,7 @@ p {
 main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: $black;
-  width: 1200px;
+  width: 1280px;
   margin: 0 auto;
   height: 100%;
   align-items: center;
@@ -75,5 +77,24 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.green {
+  background-color: $green;
+}
+.red {
+  background-color: $red;
+}
+.yellow {
+  background-color: $yellow;
+}
+.orange {
+  background-color: $orange;
+}
+.blue {
+  background-color: $blue;
+}
+.purple {
+  background-color: $purple;
 }
 </style>

@@ -27,12 +27,10 @@ export default defineComponent({
   p {
     text-align: center;
     font-size: 40px;
-    font-weight: 600;
   }
   select {
     width: 350px;
     border: 0;
-    font-weight: 600;
     padding: 16px 20px;
     font-size: 16px;
   }
