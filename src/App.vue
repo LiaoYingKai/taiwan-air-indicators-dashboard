@@ -1,8 +1,11 @@
 <template>
   <main>
-    <content>
+    <section>
+      <div class="flex">
+        <Title :cities="['高雄', '臺北']" />
+      </div>
       <Divider city="高雄市" date="2020/11/11 14:00" />
-    </content>
+    </section>
     <footer>
       <p>資料來源：g0v</p>
       <p>Copyright © 2019 HexSchool. All rights reserved.</p>
@@ -12,10 +15,12 @@
 
 <script>
 import Divider from "@/components/divider.vue";
+import Title from "@/components/title.vue";
 export default {
   name: "App",
   components: {
     Divider,
+    Title,
   }
 };
 </script>
@@ -49,7 +54,7 @@ main {
   padding: 0px 85px;
   box-sizing: border-box;
 }
-content {
+section {
   width: 100%;
 }
 footer {
