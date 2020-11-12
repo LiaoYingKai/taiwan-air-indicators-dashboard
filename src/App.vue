@@ -6,6 +6,15 @@
         <Ruler />
       </div>
       <Divider city="高雄市" date="2020/11/11 14:00" />
+      <div class="flex statistics">
+        <AreaDetial />
+        <div>
+          <Area name="前金" :number="0" />
+          <Area name="前金" :number="100" />
+          <Area name="前金" :number="201" />
+          <Area name="前金" :number="550" />
+        </div>
+      </div>
     </section>
     <footer>
       <p>資料來源：g0v</p>
@@ -15,15 +24,37 @@
 </template>
 
 <script>
+import { defineComponent } from "vue";
 import Divider from "@/components/divider.vue";
 import Title from "@/components/title.vue";
-export default {
+import Ruler from "@/components/ruler.vue";
+import Area from "@/components/area.vue";
+import AreaDetial from "@/components/areaDetail.vue";
+
+export default defineComponent({
   name: "App",
   components: {
     Divider,
     Title,
+    Ruler,
+    Area,
+    AreaDetial
+  },
+  setup() {
+    // getDate();
+    // async function getDate() {
+    //   try {
+    //     let response = await fetch(
+    //       "https://data.epa.gov.tw/api/v1/aqx_p_432?limit=100000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&format=json"
+    //     );
+    //     let data = await response.json();
+    //     console.log(data);
+    //   } catch (e) {
+    //     console.log("Oops, error", e);
+    //   }
+    // }
   }
-};
+});
 </script>
 
 <style lang="scss">
@@ -48,9 +79,8 @@ main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: $black;
   width: 1280px;
-  margin: 0 auto;
+  margin: 100px auto 0;
   height: 100%;
-  align-items: center;
   justify-content: center;
   display: flex;
   padding: 0px 85px;
@@ -79,17 +109,34 @@ footer {
   align-items: center;
 }
 
+.statistics {
+  > div {
+    &:first-child {
+      flex: 1;
+    }
+    &:last-child {
+      flex: 2;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      > div {
+        margin-bottom: 32px;
+      }
+    }
+  }
+}
+
 .green {
   background-color: $green;
-}
-.red {
-  background-color: $red;
 }
 .yellow {
   background-color: $yellow;
 }
 .orange {
   background-color: $orange;
+}
+.red {
+  background-color: $red;
 }
 .blue {
   background-color: $blue;
