@@ -79,11 +79,11 @@ main {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   color: $black;
   width: 1280px;
-  margin: 100px auto 0;
+  margin: 0 auto;
   height: 100%;
   justify-content: center;
   display: flex;
-  padding: 0px 85px;
+  padding: 80px 85px 0;
   box-sizing: border-box;
 }
 section {
@@ -110,6 +110,7 @@ footer {
 }
 
 .statistics {
+  align-items: flex-start;
   > div {
     &:first-child {
       flex: 1;

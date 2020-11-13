@@ -35,5 +35,6 @@ export default defineComponent({
     flex: 1;
     margin: 0 24px;
   }
+  margin: 32px 0;
 }
 </style>
