@@ -1,5 +1,5 @@
 <template>
-  <div class="area">
+  <div class="area" @click="$emit('on-click', name)">
     <p class="area__name">
       {{ name }}
     </p>
@@ -17,7 +17,7 @@ export default defineComponent({
       default: ""
     },
     number: {
-      type: Number,
+      type: [Number, String],
       default: 0
     }
   },
@@ -45,6 +45,7 @@ export default defineComponent({
 
 <style scoped lang="scss">
 .area {
+  cursor: pointer;
   width: 350px;
   height: 97px;
   display: flex;

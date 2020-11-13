@@ -2,17 +2,27 @@
   <main>
     <section>
       <div class="flex">
-        <Title :cities="['高雄', '臺北']" />
+        <Title
+          :cities="counties"
+          @onChange="handleChangeCounty"
+          :value="selectCounty"
+        />
         <Ruler />
       </div>
-      <Divider city="高雄市" date="2020/11/11 14:00" />
+      <Divider
+        :city="selectSiteDetail.County"
+        :date="selectSiteDetail.PublishTime"
+      />
       <div class="flex statistics">
-        <AreaDetial />
+        <AreaDetial :detail="selectSiteDetail" />
         <div>
-          <Area name="前金" :number="0" />
-          <Area name="前金" :number="100" />
-          <Area name="前金" :number="201" />
-          <Area name="前金" :number="550" />
+          <Area
+            :name="item.SiteName"
+            :number="item.AQI"
+            v-for="item in Object.values(selectCountyDetail)"
+            :key="item.SiteName"
+            @onClick="handleClickSite"
+          />
         </div>
       </div>
     </section>
@@ -24,7 +34,7 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import Divider from "@/components/divider.vue";
 import Title from "@/components/title.vue";
 import Ruler from "@/components/ruler.vue";
@@ -41,18 +51,61 @@ export default defineComponent({
     AreaDetial
   },
   setup() {
-    // getDate();
-    // async function getDate() {
-    //   try {
-    //     let response = await fetch(
-    //       "https://data.epa.gov.tw/api/v1/aqx_p_432?limit=100000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&format=json"
-    //     );
-    //     let data = await response.json();
-    //     console.log(data);
-    //   } catch (e) {
-    //     console.log("Oops, error", e);
-    //   }
-    // }
+    const counties = ref([]);
+    const details = ref({});
+    const selectCounty = ref("");
+    const selectCountyDetail = ref({});
+    const selectSiteDetail = ref({});
+
+    getDate();
+    async function getDate() {
+      try {
+        let response = await fetch(
+          "https://data.epa.gov.tw/api/v1/aqx_p_432?limit=100000&api_key=9be7b239-557b-4c10-9775-78cadfc555e9&format=json"
+        );
+        let { records } = (await response.json()) || {};
+        records.forEach(item => {
+          if (!counties.value.includes(item.County)) {
+            counties.value = [...counties.value, item.County];
+          }
+          if (!details.value[item.County]) {
+            details.value[item.County] = {
+              [item.SiteName]: item
+            };
+          } else {
+            details.value[item.County] = {
+              ...details.value[item.County],
+              [item.SiteName]: item
+            };
+          }
+        });
+        selectCounty.value = counties.value[0];
+        selectCountyDetail.value = details.value[selectCounty.value];
+        selectSiteDetail.value = Object.values(selectCountyDetail.value)[0];
+      } catch (error) {
+        console.log("Oops, error", error);
+      }
+    }
+
+    function handleChangeCounty(county) {
+      selectCounty.value = county;
+      selectCountyDetail.value = details.value[selectCounty.value];
+      selectSiteDetail.value = Object.values(selectCountyDetail.value)[0];
+    }
+
+    function handleClickSite(siteName) {
+      selectSiteDetail.value = selectCountyDetail.value[siteName];
+    }
+
+    return {
+      counties,
+      details,
+      selectCounty,
+      selectCountyDetail,
+      selectSiteDetail,
+      handleChangeCounty,
+      handleClickSite
+    };
   }
 });
 </script>
@@ -72,7 +125,7 @@ p {
 }
 #app {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
 main {
@@ -80,10 +133,10 @@ main {
   color: $black;
   width: 1280px;
   margin: 0 auto;
-  height: 100%;
+  min-height: 100%;
   justify-content: center;
   display: flex;
-  padding: 80px 85px 0;
+  padding: 80px 85px;
   box-sizing: border-box;
 }
 section {

@@ -1,6 +1,6 @@
 <template>
   <div class="area-detial">
-    <Area name="前金" :number="0" />
+    <Area :name="detail.SiteName" :number="detail.AQI" />
     <div class="area-detial__content">
       <div
         class="area-detial__content-item"
@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
 import Area from "@/components/area.vue";
 
 export default defineComponent({
@@ -29,39 +29,39 @@ export default defineComponent({
       default: () => {}
     }
   },
-  setup() {
-    const data = [
+  setup(props) {
+    const data = computed(() => [
       {
         name: "臭氧",
         abbreviation: "O3(ppb)",
-        value: 82
+        value: props.detail.O3
       },
       {
         name: "懸浮微粒",
         abbreviation: "PM10 (μg/m³)",
-        value: 100
+        value: props.detail.PM10
       },
       {
         name: "細懸浮微粒",
         abbreviation: "PM2.5 (μg/m³)",
-        value: 72
+        value: props.detail["PM2.5"]
       },
       {
         name: "一氧化碳",
         abbreviation: "CO (ppm)",
-        value: 100
+        value: props.detail.CO
       },
       {
         name: "二氧化硫",
         abbreviation: "SO2 (ppb)",
-        value: 100
+        value: props.detail.SO2
       },
       {
         name: "二氧化氮",
         abbreviation: "NO2 (ppb)",
-        value: 100
+        value: props.detail.NO2
       }
-    ];
+    ]);
 
     return {
       data

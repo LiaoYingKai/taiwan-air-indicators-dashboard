@@ -1,7 +1,7 @@
 <template>
   <div class="title">
     <p>空氣品質指標(AQI)</p>
-    <select>
+    <select @change="handleChange" :value="value">
       <option value="" selected disabled hidden>請選擇地區</option>
       <option v-for="city in cities" :key="city" :value="city">
         {{ city }}
@@ -16,9 +16,21 @@ export default defineComponent({
     cities: {
       type: Array,
       default: () => []
+    },
+    value: {
+      type: String,
+      default: ""
     }
   },
-  setup() {}
+  setup(props, { emit }) {
+    function handleChange(event) {
+      emit("on-change", event.target.value);
+    }
+
+    return {
+      handleChange
+    };
+  }
 });
 </script>
 
