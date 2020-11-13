@@ -1,5 +1,5 @@
 # taiwan-air-indicators-dashboard
-全臺空氣指標儀表板，使用 vue3 與 scss，抓取 g0v 提供的線上 API，熟悉
+全臺空氣指標儀表板，使用 vue3 與 scss，抓取 g0v 提供的線上 API
 
 [Demo Page](https://liaoyingkai.github.io/taiwan-air-indicators-dashboard/)
 
